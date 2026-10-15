@@ -1,41 +1,39 @@
 # Ship AI Brief
 
-Small, visual briefs for developers building with AI. What changed, what to check, and where the claim comes from.
+The useful launches, surprising discoveries and big AI shifts worth knowing about. Big visuals. Short reads. The catch included.
 
-[Read on Telegram](https://t.me/shipaibrief) | [Browse the public channel](https://t.me/s/shipaibrief)
+[Follow on Telegram](https://t.me/shipaibrief) | [Visual preview](https://colaps1s.github.io/ship-ai-brief/)
 
-## Latest brief - 15 October 2026
+## A better starting point - 15 October 2026
 
-![Two GitHub changes worth checking](issues/2026-10-15.png)
+### Describe it. Build it. Review it.
 
-### GitHub app permissions: check your repository creation scope
+![Describe it. Build it. Review it.](issues/2026-10-15-gemini-app.png)
 
-GitHub announced a separate `repository_creation:write` permission on 13 October. Apps that create repositories can request a narrower permission than general repository administration. An organization administrator still needs to install the app.
+Have an app idea stuck in Notes? Google has added Antigravity to Gemini on Mac: approve a plan and a coding agent builds and tests in the background. Our take: a shorter path to a first prototype, with human review still essential. English, ages 18+, eligible accounts and supported regions. Announced 13 Oct 2026; we have not tested it hands-on.
 
-Our take: if your integration asks for administration only because it creates repositories, review whether the new permission covers that use. Do not remove permissions your other operations still need.
+[Original source](https://gemini.google/release-notes/?hl=en) | [Telegram post](https://t.me/shipaibrief/7)
 
-A quick review:
+### Your next support call might be AI.
 
-- List the repository operations your app actually performs.
-- Separate creation from operations that still require administration.
-- Check the permission definitions for each operation before changing the app.
-- Test the revised permission request in a disposable organization or repository.
-- Check the changelog's availability notes if you use GitHub Enterprise Server.
+![Your next support call might be AI.](issues/2026-10-15-voice-calls.png)
 
-[Original GitHub changelog](https://github.blog/changelog/2026-10-13-github-app-improvements-for-least-privilege-and-management/)
+Grok Voice 3.0 launched on 14 Oct. Its announcement says Starlink uses Grok Voice for 20,000 calls a day, with roughly 70% resolved without a human. Those are company-reported figures for Grok Voice in use, not a measured improvement from the new release. Our take: fixing the problem matters more than sounding human.
 
-### Copilot policy: plan for failed refreshes
+[Original source](https://x.ai/news/grok-voice-3) | [Telegram post](https://t.me/shipaibrief/8)
 
-GitHub announced `forceRemoteSettingsRefresh` on 13 October. Supported Copilot clients can refuse to continue when they cannot confirm current enterprise policy. A server-delivered setting applies on subsequent startups after the client has received it. Device management or file-delivered settings can apply from first startup.
+### 9 billion DNA changes. One AI atlas.
 
-Our take: if you enforce this setting, include policy-service outages in rollout testing. Do not assume every client or deployment method has identical first-start behavior.
+![9 billion DNA changes. One AI atlas.](issues/2026-10-15-dna-atlas.png)
 
-[Original GitHub changelog](https://github.blog/changelog/2026-10-13-enterprise-managed-settings-enforcement-updates/)
+Science catch-up, announced 8 Sep 2026. AlphaGenome Atlas maps predictions for 9 billion possible single-letter DNA changes, with a free academic research portal. Our take: it helps researchers choose what to investigate in the lab. Predictions are not diagnoses or cures; the tool is not approved for clinical use.
 
-## Editorial approach
+[Original source](https://deepmind.google/blog/alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome/) | [Telegram post](https://t.me/shipaibrief/9)
 
-Up to three worthwhile stories in a weekday digest. Original summaries, official source links and clear limitations. CHECK on a card means our assessment. Announcements and vendor claims are labelled; we do not claim hands-on tests we have not performed.
+## How we choose stories
 
-This channel launched on 15 October 2026. We are collecting reader feedback, not claiming an established audience. If this brief helps a colleague, [forward the Telegram post](https://t.me/shipaibrief/3).
+One weekday digest, up to three good stories. A new capability people can use, a meaningful price change, a surprising discovery, or a failure with consequences. Original sources and announcement dates, company claims labelled, no invented hands-on tests. Older catch-ups are clearly dated. Images are original AI-generated editorial illustrations.
 
-Corrections and suggestions can be submitted as repository issues. Please include a source link.
+The narrow launch issue remains in the [archive](issues/2026-10-15-original.md).
+
+Corrections and suggestions are welcome through repository issues.
