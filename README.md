@@ -1,4 +1,4 @@
-# Ship AI Brief
+# AI Got Weird
 
 The useful launches, surprising discoveries and big AI shifts worth knowing about. Big visuals. Short reads. The catch included.
 
