@@ -1,5 +1,7 @@
 # AI Got Weird
 
+Latest visual: [AI can rebuild what you see](https://t.me/shipaibrief/11). Research catch-up: paper29Oct2025, university coverage14Sep2026. Uses fMRI recordings of viewed pictures; not arbitrary thought-reading. [Paper](https://arxiv.org/abs/2510.25976).
+
 The useful launches, surprising discoveries and big AI shifts worth knowing about. Big visuals. Short reads. The catch included.
 
 [Follow on Telegram](https://t.me/shipaibrief) | [Visual preview](https://colaps1s.github.io/ship-ai-brief/)
