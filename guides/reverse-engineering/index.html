@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to reverse engineer an app - a practical guide | AI Got Weird</title>
+<meta name="description" content="REA, the Adobe-alternative story, and a practical guide to taking software apart. Exact tools, an evidence-first workflow and a free downloadable lab.">
+<link rel="canonical" href="https://colaps1s.github.io/ship-ai-brief/guides/reverse-engineering/">
+<meta property="og:type" content="article"><meta property="og:title" content="What's inside this app? Reverse engineering, explained."><meta property="og:description" content="The viral REA project, the Adobe-alternative story, and a practical guide you can actually try. Includes a free Python lab."><meta property="og:image" content="https://colaps1s.github.io/ship-ai-brief/guides/reverse-engineering/cover.png"><meta property="og:image:alt" content="An app pulled into glowing layers. What's inside this app? Reverse engineering, explained."><meta property="og:url" content="https://colaps1s.github.io/ship-ai-brief/guides/reverse-engineering/"><meta name="twitter:card" content="summary_large_image"><meta property="article:published_time" content="2026-10-16"><link rel="icon" href="../../avatar.svg" type="image/svg+xml">
+<style>
+:root{color-scheme:dark;--bg:#0d1928;--panel:#14253a;--ink:#f5f3e9;--muted:#b6c2cf;--mint:#83ebc3;--line:#34465b}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;background:var(--bg);color:var(--ink);font:19px/1.75 system-ui,sans-serif}a{color:var(--mint);text-underline-offset:4px;overflow-wrap:anywhere}a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(--mint);outline-offset:4px}header,main,footer{max-width:820px;margin:auto;padding:24px}header{display:flex;justify-content:space-between;gap:20px;font-size:15px}.brand{font-weight:800;text-decoration:none;color:var(--ink)}.eyebrow{font-size:12px;letter-spacing:.12em;color:var(--mint);font-weight:800}h1{font-size:clamp(39px,7vw,68px);line-height:1.06;letter-spacing:-.05em;margin:20px 0 24px}h2{font-size:32px;line-height:1.2;letter-spacing:-.025em;margin:58px 0 20px}h3{font-size:23px;line-height:1.3;margin:30px 0 12px}.lead{font-size:23px;color:var(--muted)}p{margin:20px 0}.meta,.note,figcaption,footer{font-size:14px;color:var(--muted)}figure{margin:30px 0}.cover{width:100%;height:auto;display:block;border-radius:18px}.quick,.callout,.experiment{background:var(--panel);border:1px solid var(--line);padding:24px;border-radius:16px;margin:28px 0}.quick h2{margin:0 0 14px;font-size:25px}.cta{display:inline-block;padding:12px 18px;border-radius:10px;background:var(--mint);color:#102434;text-decoration:none;font-weight:800;font-size:16px}.secondary{display:inline-block;margin:10px 18px 0 0}.toc{padding:16px 22px;border:1px solid var(--line);border-radius:12px;margin:32px 0}.toc summary{cursor:pointer;color:var(--mint);font-weight:750}.toc ol{margin:14px 0 4px;padding-left:24px}li{margin:10px 0}ol,ul{padding-left:25px}pre{background:#08121e;color:#ddf8eb;padding:18px;border:1px solid var(--line);border-radius:10px;overflow-x:auto;max-width:100%;font:14px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;tab-size:4}code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.85em;overflow-wrap:anywhere}pre code{font-size:inherit;overflow-wrap:normal}.codebox{position:relative}.copy{background:var(--panel);color:var(--mint);border:1px solid var(--line);padding:8px 13px;border-radius:7px;font-size:13px;cursor:pointer;margin-bottom:0}.tablewrap{overflow-x:auto;margin:24px 0}table{border-collapse:collapse;font-size:16px;min-width:590px;width:100%}th,td{text-align:left;padding:13px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--mint)}.flow{display:flex;flex-wrap:wrap;gap:10px;list-style:none;padding:0}.flow li{padding:8px 12px;background:var(--panel);border:1px solid var(--line);border-radius:9px;font-weight:750;font-size:15px}.experiment select{max-width:100%;padding:11px;font-size:16px;background:var(--bg);color:var(--ink);border:1px solid var(--mint);border-radius:7px}.hex{font:15px/2 ui-monospace,monospace;overflow-wrap:anywhere;background:#08121e;padding:16px;border-radius:9px}.hex .header{color:#b8edff}.hex .count{color:#e7ff86}.hex .items{color:#ffaecb}.legend{font-size:14px}.legend span{margin-right:16px}blockquote{border-left:3px solid var(--mint);margin:25px 0;padding:4px 0 4px 20px;color:var(--muted)}.sources{font-size:15px}.sources li{margin:14px 0}.end{margin-top:50px;padding-top:25px;border-top:1px solid var(--line)}footer{border-top:1px solid var(--line);margin-top:40px;padding-bottom:40px}@media(max-width:550px){header,main,footer{padding:18px}body{font-size:18px;line-height:1.75}.lead{font-size:21px}h2{font-size:28px;margin-top:45px}.quick,.callout,.experiment{padding:18px}pre{padding:13px;font-size:12px}figure{margin:24px 0}.copy{min-height:40px}.tablewrap{margin-right:-4px}.meta{font-size:12px}}
+</style></head><body>
+<header><a class="brand" href="../../">AI Got Weird</a><a href="../../reading/">More stories ↗</a></header>
+<main><article><div class="eyebrow">THE PRACTICAL GUIDE · 16 OCTOBER 2026</div>
+<h1>What's inside<br>this app?</h1>
+<p class="lead">Reverse engineering is detective work for software. AI can help follow the clues. You still need to prove where they lead.</p>
+<p class="meta">By Artem / AI Got Weird · AI-assisted, individually source-checked · Free, no login</p>
+<figure><img class="cover" src="cover.png" alt="An app opened into floating interface, logic and data layers, examined through a magnifying glass." width="1254" height="1254"><figcaption>Original editorial artwork. The lab below uses real, downloadable example files.</figcaption></figure>
+<p>A program opens a strange file. A button produces a surprising result. An old tool does something your new one cannot. How do you work out what happened when you do not have the original source code?</p>
+<p>You collect evidence, form a small hypothesis, and test it. Then you turn what you learned into a specification someone else could implement.</p>
+<div class="quick"><h2>Start with one feature.</h2><p>“Read this file” is a useful first project. “Rebuild Photoshop” is thousands of projects hiding inside one sentence.</p><a class="cta" href="#lab">Try the downloadable lab ↓</a> <a class="secondary" href="#rea">Set up REA ↓</a><p class="note">The lab needs only Python 3. The other routes explain which tools to use for your own authorized targets.</p></div>
+<details class="toc" open><summary>In this guide</summary><ol><li><a href="#viral">REA and the Adobe story</a></li><li><a href="#method">The process that actually works</a></li><li><a href="#tools">Pick tools for your target</a></li><li><a href="#web">Inspect a website or web app</a></li><li><a href="#native">Inspect a desktop program</a></li><li><a href="#lab">A complete file-format exercise</a></li><li><a href="#rea">Connect REA to a coding agent</a></li><li><a href="#prompts">Useful prompts and a rebuild checklist</a></li></ol></details>
+
+<h2 id="viral">First, untangle the viral claims.</h2>
+<p><a href="https://github.com/morluto/rea">REA - Reverse Engineer Anything</a> is the GitHub project behind this guide. Its page showed roughly 284,000 stars when checked on 16 October. That is a popularity snapshot, not a measure of how well it handles your app.</p>
+<p>REA connects coding agents to analysis tools. It can put disassembly, pseudocode and other findings into the agent's workflow. For native programs, it works with backends such as Ghidra, Hopper or IDA. Think of it as a bridge between the investigator and their instruments, rather than a button that restores every program's source.</p>
+<h3>And the person rebuilding Adobe-style apps?</h3>
+<p>That is a related story: <a href="https://github.com/echelon">Brandon Thomas</a> and the ArtCraft family of applications. <a href="https://github.com/storytold/photocraft">PhotoCraft's maintainers describe it</a> as a Rust implementation built from public specifications and observed behavior, without Adobe's proprietary code or assets.</p>
+<p>They also explicitly call it early alpha and say it is not yet a daily professional replacement for Photoshop. A familiar toolbar and a working export are meaningful progress. They do not establish parity across decades of features, file compatibility, color handling and plugins.</p>
+<p><strong>There is no source here establishing that ArtCraft used REA.</strong> Understanding behavior, rebuilding it independently, and recovering original source are three different things.</p>
+
+<h2 id="method">The process that actually works</h2>
+<ol class="flow" aria-label="Investigation workflow"><li>1. Observe</li><li>2. Compare</li><li>3. Explain</li><li>4. Rebuild</li><li>5. Test</li></ol>
+<h3>1. Ask a question you can answer.</h3>
+<p>Choose an outcome: “How is the export's width stored?” or “What happens when the search field is empty?” Record the target version, operating system, settings and your starting file. Keep an untouched copy. A future update may change the answer.</p>
+<h3>2. Change one thing.</h3>
+<p>Save the same document twice, changing only its title. Export the same image at two widths. Send an empty search, then one word, then an unusual character. Differences are useful when you know which input caused them.</p>
+<h3>3. Separate observations from guesses.</h3>
+<p>“Byte 8 changed from 10 to 11” is an observation. “This stores the score” is a hypothesis. Keep both in a small evidence log. If an AI says a function validates a file, ask for the branch, string, input or experiment supporting that claim.</p>
+<h3>4. Predict a result you have not checked.</h3>
+<p>If two bytes represent a little-endian number, predict what 256 will look like. If a field is a length, predict what happens after adding an item. A theory that explains old examples can still be wrong; an unseen test is where it starts earning trust.</p>
+<h3>5. Rebuild the smallest useful behavior.</h3>
+<p>Write a specification with inputs, outputs, errors and edge cases. Implement from that specification. Compare both implementations on the same fixtures. Add malformed files, empty values and boundary cases before broadening the scope.</p>
+<div class="callout"><strong>The question to keep asking:</strong><p>“What observation would prove this explanation wrong?” It is a better next step than asking the model whether it is confident.</p></div>
+
+<h2 id="tools">Pick tools for the thing you have.</h2>
+<div class="tablewrap" role="region" aria-label="Tools by target" tabindex="0"><table><thead><tr><th>Your target</th><th>Start here</th><th>What to look for</th></tr></thead><tbody>
+<tr><td>Website / web app</td><td><a href="https://developer.chrome.com/docs/devtools/network">Chrome DevTools</a></td><td>Requests, responses, browser-loaded scripts and visible behavior</td></tr>
+<tr><td>Native desktop executable</td><td><a href="https://github.com/NationalSecurityAgency/ghidra">Ghidra</a></td><td>Strings, functions, call references and decompiled approximations</td></tr>
+<tr><td>Android APK you own</td><td><a href="https://github.com/skylot/jadx">JADX</a></td><td>Manifest, resources, Java-like code and references; native libraries need separate analysis</td></tr>
+<tr><td>Unknown file format</td><td>Hex viewer + Python <a href="https://docs.python.org/3/library/struct.html">struct</a></td><td>Stable headers, lengths, byte order, repeating records</td></tr>
+<tr><td>JavaScript / Electron application</td><td>Readable source first; <a href="https://github.com/morluto/rea/blob/main/docs/cli.md">REA's JavaScript analysis</a> if useful</td><td>Entry points, modules, event handlers and app behavior</td></tr>
+</tbody></table></div>
+<p class="note">Ghidra and JADX are open source. REA's code is MIT licensed; connected tools and model services can have separate licenses or costs. You do not need a paid disassembler for the lab.</p>
+
+<h2 id="web">Route A: follow a web app's request.</h2>
+<p>Use your own site, a local example or a target you have permission to inspect. Choose one interaction, such as submitting a search.</p>
+<ol><li>Open Chrome DevTools and its <strong>Network</strong> panel. Clear the request list. Turn on <strong>Preserve log</strong> if the action navigates away.</li><li>Perform the action once. Filter to <strong>Fetch/XHR</strong> and find the relevant request by its timing and content.</li><li>Record its method, path, query parameters or payload, response status and response shape. Keep credentials out of your notes.</li><li>Repeat with a single changed input. Does the browser send the filter, or filter an already downloaded list?</li><li>Write the behavior as a contract. Example: “Empty input returns an empty list; three matching records render in this order.” Implement a local mock and compare its visible result.</li></ol>
+<p>The <a href="https://developer.chrome.com/docs/devtools/network">official Network guide</a> explains the panel and request details. A response shows what the server returned, not its private implementation. You cannot recover a remote recommendation algorithm simply by downloading the page. HAR exports can contain secrets; do not publish an unreviewed capture.</p>
+
+<h2 id="native">Route B: start with a string in a desktop app.</h2>
+<p>For a compiled program, use a copy of an executable you own or are authorized to analyze. Do not run an unfamiliar executable just to find out what it does.</p>
+<ol><li>Get Ghidra from its <a href="https://github.com/NationalSecurityAgency/ghidra/releases">official releases</a>. Follow the version's <a href="https://github.com/NationalSecurityAgency/ghidra/blob/master/GhidraDocs/GettingStarted.md">Getting Started requirements</a>; the current document specifies a 64-bit Java 25 JDK.</li><li>Create a non-shared project, import the copied program, and allow automatic analysis. Check that the selected architecture matches the file.</li><li>In CodeBrowser, open <strong>Window → Defined Strings</strong>. Search for a distinctive message from the feature, such as an export error.</li><li>Follow references to that string. Inspect the surrounding function and its callers in the decompiler and listing. Note the checks leading to the message.</li><li>Give functions provisional names such as <code>maybe_read_header</code>. Record addresses and evidence. Decompiled pseudocode is an approximation, not the author's original source.</li><li>Test the proposed rule against controlled examples in your own program. If it predicts the wrong result, revise the explanation before copying its logic into a replacement.</li></ol>
+<p>Optimizations, missing symbols, indirect calls and unusual formats can make this difficult. An agent's plausible function name does not resolve those gaps.</p>
+<h3>Android is a different starting point.</h3>
+<p>Open your own APK in <a href="https://github.com/skylot/jadx">jadx-gui</a>. Start with the manifest, locate the relevant screen or distinctive text, and follow usages into event handlers. JADX reconstructs Java-like source from Android bytecode, with limitations. Native <code>.so</code> code needs a native tool. Record missing or failed decompilation instead of treating the view as a complete source tree.</p>
+
+<h2 id="lab">Try it: decode a tiny mystery file.</h2>
+<p>No installation beyond Python 3. No account. No unknown executable. Download the ZIP, extract it, and open a terminal inside its <code>lab</code> folder.</p>
+<p><a class="cta" href="reverse-engineering-lab.zip" download>Download the practice lab ↓</a> <a class="secondary" href="lab/inspect_lbx.py">Read the parser</a></p>
+<p class="note">We created this format and its fixtures for teaching. This is a reproducible exercise, not a claim that we blindly decoded a real product or tested REA.</p>
+<h3>Step 1: compare three controlled saves.</h3>
+<p>File A was saved with values 10 and 20. B changes only 20 to 21. C adds a third value, 30. If <code>xxd</code> is installed, inspect them with:</p>
+<div class="codebox"><button class="copy" data-copy="hex-commands">Copy commands</button><pre id="hex-commands"><code>xxd -g 1 samples/a.lbx
+xxd -g 1 samples/b.lbx
+xxd -g 1 samples/c.lbx</code></pre></div>
+<p>Or explore the same bytes here. Colors show the proposed fields; selecting another sample shows what changes.</p>
+<div class="experiment"><label for="sample"><strong>Choose a save file</strong></label><p><select id="sample"><option value="a">A: 10, 20</option><option value="b">B: 10, 21</option><option value="c">C: 10, 20, 30</option><option value="held">Held-out: predict before checking</option></select></p><div id="hex" class="hex" aria-live="polite"></div><p class="legend"><span style="color:#b8edff">Blue: signature</span><span style="color:#e7ff86">Lime: count</span><span style="color:#ffaecb">Pink: values</span></p><p id="explanation"></p></div>
+<h3>Step 2: write a theory.</h3>
+<p>The first four bytes stay fixed: <code>4c 42 58 31</code>, or ASCII <code>LBX1</code>. They look like a format signature. The next four start with <code>02</code> for A and B, then <code>03</code> for C. Perhaps they store the item count.</p>
+<p>The remaining values appear in pairs: <code>0a 00</code> means 10, <code>14 00</code> means 20, and <code>1e 00</code> means 30. Our working theory is a four-byte little-endian count followed by two-byte little-endian unsigned values. Three small examples do not yet establish every possible rule.</p>
+<h3>Step 3: predict an unseen save.</h3>
+<p>The held-out fixture is <code>4c 42 58 31 03 00 00 00 00 01 01 02 ff ff</code>. Under this theory, <code>00 01</code> is 256, <code>01 02</code> is 513 and <code>ff ff</code> is 65535. Now check:</p>
+<div class="codebox"><button class="copy" data-copy="lab-commands">Copy commands</button><pre id="lab-commands"><code>python3 inspect_lbx.py samples/held-out.lbx
+# Expected: [256, 513, 65535]
+
+python3 inspect_lbx.py samples/truncated.lbx
+# Expected error: size does not match count</code></pre></div>
+<h3>Step 4: build a reader that rejects bad input.</h3>
+<p>Python's <a href="https://docs.python.org/3/library/struct.html">struct module</a> lets us state the byte order and number sizes explicitly. The core reader is short:</p>
+<pre><code>def parse(data):
+    if len(data) &lt; 8:
+        raise ValueError("truncated header")
+    if data[:4] != b"LBX1":
+        raise ValueError("wrong signature")
+    count = struct.unpack_from("&lt;I", data, 4)[0]
+    if len(data) != 8 + count * 2:
+        raise ValueError("size does not match count")
+    return [struct.unpack_from("&lt;H", data, 8 + i * 2)[0]
+            for i in range(count)]</code></pre>
+<p><code>&lt;</code> selects little-endian byte order; <code>I</code> reads an unsigned four-byte integer and <code>H</code> reads two bytes. The complete downloadable script includes imports and a command-line entry point.</p>
+<p><strong>What we actually checked:</strong> all four valid fixtures decoded correctly. Five malformed cases were rejected: a truncated record, a short header, a wrong signature, extra trailing data and an impossible count. Nine checks passed locally on 16 October. This only verifies our teaching format and parser.</p>
+<p>With a real format, your next questions might be compression, checksums, optional fields and versions. Make a new controlled file for each question rather than inventing the answer.</p>
+
+<h2 id="rea">Where REA fits into this</h2>
+<p>Once you understand the process, REA can help a coding agent operate the analysis tools and follow evidence across them. It does not remove the need for a narrow question or tests.</p>
+<h3>1. Review the setup before running it.</h3>
+<p>Use a project you control. Read the <a href="https://github.com/morluto/rea/blob/main/docs/installation.md">official installation instructions</a>. They currently support Node 22.19+ within 22.x, 24.11+ within 24.x, or 26+. Check your version first:</p>
+<div class="codebox"><button class="copy" data-copy="rea-setup">Copy setup commands</button><pre id="rea-setup"><code>node --version
+npx rea-agents@latest setup</code></pre></div>
+<p>Choose the intended coding agent, review the proposed paths and changes, and approve only what you need. Setup adds an MCP connection and workflow instructions; restart the named agent afterwards. Native analysis needs a compatible backend. JavaScript analysis does not require a native disassembler.</p>
+<h3>2. Choose a small, explicit target.</h3>
+<p>For example, the <a href="https://github.com/morluto/rea/blob/main/docs/cli.md">documented JavaScript command</a> can be run through the package runner:</p>
+<pre><code>npx -y rea-agents@latest analyze-javascript-application /absolute/path/to/your-app --json</code></pre>
+<p>The <code>-y</code> flag accepts npm's package-runner prompt. Read the package and installation information first; this downloads and executes a tool. We have not installed or benchmarked REA for this article.</p>
+<h3>3. Keep the evidence trail.</h3>
+<p>Ask the agent for the exact source location, address or observation behind each conclusion. Save the target version, tool versions, commands, fixtures and unresolved questions with your notes. Analysis runs locally, but findings passed to a model enter its context; your model provider's data handling still matters. Do not assume “local tool” means “no data leaves the machine.”</p>
+
+<h2 id="prompts">Give the agent a case, not a wish.</h2>
+<p>A good starting prompt defines the feature, the available evidence and what success means. Copy this and replace the bracketed fields:</p>
+<div class="codebox"><button class="copy" data-copy="investigation-prompt">Copy investigation prompt</button><pre id="investigation-prompt"><code>Target: [an app/file I own or am authorized to analyze]
+Question: [one specific behavior]
+Version and environment: [exact build, OS, settings]
+Evidence: [paths to controlled input/output examples]
+
+First propose a small investigation plan.
+Separate observed facts, hypotheses and unknowns.
+For each conclusion, cite a file/line, function/address,
+or reproducible input/output observation.
+Propose a test that could disprove each main hypothesis.
+Do not execute unknown binaries or change the original.
+Do not install tools or upload data without asking.
+Deliver a behavior specification and a test matrix.
+Do not claim original source recovery from pseudocode.</code></pre></div>
+<h3>Hand a specification to the builder.</h3>
+<p>If you want an independent implementation, separate investigation notes from the build instructions. A stricter clean-room process needs real access separation; starting a second chat while both agents can read the same files does not establish it.</p>
+<div class="codebox"><button class="copy" data-copy="implementation-prompt">Copy rebuild prompt</button><pre id="implementation-prompt"><code>Implement only the attached behavior specification.
+Use original code and assets. Do not fetch the target.
+List assumptions before implementing missing behavior.
+Run every supplied input/output fixture.
+Add boundary, empty and malformed-input tests.
+Report passed tests, failures and unsupported cases.
+Keep implementation claims limited to those results.</code></pre></div>
+<h3>Before calling it done</h3>
+<ul><li>Can the result handle an input you did not use while designing it?</li><li>Does it preserve the details the user needs, such as precision, order or export compatibility?</li><li>Does it fail clearly on unsupported versions and damaged inputs?</li><li>Could another person reproduce your findings from the saved evidence?</li><li>Have you distinguished a promising prototype from a dependable replacement?</li></ul>
+<p>Use owned, open-licensed or explicitly authorized targets. Keep proprietary code, artwork and credentials out of a new implementation. This guide does not cover bypassing licensing, authentication or paid access. Permission to inspect and permission to redistribute are separate questions.</p>
+<blockquote>The useful result is not “the AI understood the app.” It is a small explanation that predicts the next experiment, followed by an implementation that passes it.</blockquote>
+<section class="end"><h2>Worth keeping?</h2><p>AI Got Weird finds strange breakthroughs and useful tools, then explains what they can actually do. Short visual posts in Telegram. Full guides here when a topic deserves one.</p><a class="cta" href="https://t.me/shipaibrief">Follow AI Got Weird ↗</a> <a class="secondary" href="reverse-engineering-lab.zip" download>Keep the free lab ↓</a></section>
+<h2 id="sources">Original sources</h2><p class="note">Checked 16 October 2026. Repository counters and tool requirements can change. No independent REA or PhotoCraft performance test is claimed.</p>
+<ol class="sources"><li><a href="https://github.com/morluto/rea">REA repository</a> and <a href="https://rea.tools/">official site</a></li><li><a href="https://github.com/morluto/rea/blob/main/docs/installation.md">REA installation</a> and <a href="https://github.com/morluto/rea/blob/main/docs/cli.md">CLI reference</a></li><li><a href="https://github.com/echelon">Brandon Thomas</a>, <a href="https://github.com/storytold/photocraft">PhotoCraft repository and status</a>, <a href="https://getartcraft.com/apps/photocraft">official PhotoCraft page</a></li><li><a href="https://developer.chrome.com/docs/devtools/network">Chrome DevTools Network reference</a></li><li><a href="https://github.com/NationalSecurityAgency/ghidra/blob/master/GhidraDocs/GettingStarted.md">Ghidra Getting Started</a></li><li><a href="https://github.com/skylot/jadx">JADX documentation</a></li><li><a href="https://docs.python.org/3/library/struct.html">Python struct reference</a></li></ol>
+</article></main><footer>AI Got Weird · An independent project by Artem. <a href="https://github.com/Colaps1s/ship-ai-brief/issues">Suggest a correction</a> · <a href="../../">Home</a></footer>
+<script>
+const fixtures={a:['02 00 00 00','0a 00 14 00','Two values, 10 and 20. The total file length is 12 bytes.'],b:['02 00 00 00','0a 00 15 00','Only the second value changes: 14 becomes 15 in hexadecimal.'],c:['03 00 00 00','0a 00 14 00 1e 00','The proposed count becomes 3, and one two-byte record is added.'],held:['03 00 00 00','00 01 01 02 ff ff','Prediction under the proposed format: 256, 513, 65535. Check it with the downloaded parser.']};
+function updateSample(){const f=fixtures[document.getElementById('sample').value];document.getElementById('hex').innerHTML='<span class="header">4c 42 58 31</span> <span class="count">'+f[0]+'</span> <span class="items">'+f[1]+'</span>';document.getElementById('explanation').textContent=f[2]}
+document.getElementById('sample').addEventListener('change',updateSample);updateSample();
+document.querySelectorAll('[data-copy]').forEach(button=>button.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(document.getElementById(button.dataset.copy).innerText);button.textContent='Copied ✓'}catch{button.textContent='Select the text below to copy'}}));
+</script></body></html>
