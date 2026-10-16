@@ -1,10 +1,12 @@
 # AI Got Weird
 
-Latest visual: [AI can rebuild what you see](https://t.me/shipaibrief/11). Research catch-up: paper29Oct2025, university coverage14Sep2026. Uses fMRI recordings of viewed pictures; not arbitrary thought-reading. [Paper](https://arxiv.org/abs/2510.25976).
-
-The useful launches, surprising discoveries and big AI shifts worth knowing about. Big visuals. Short reads. The catch included.
+Strange AI breakthroughs, useful tools and spectacular failures - explained in a minute. Short videos and visual stories for curious people, with original sources and honest limits.
 
 [Follow on Telegram](https://t.me/shipaibrief) | [Visual preview](https://colaps1s.github.io/ship-ai-brief/)
+
+[Browse the short visual stories](https://colaps1s.github.io/ship-ai-brief/reading/), including clearly dated research classics. Each Telegram story is one short image or video post. Longer background is optional on the website.
+
+Featured research catch-up: [AI can rebuild what you see](https://t.me/shipaibrief/11). Paper first posted 29 Oct 2025; university coverage 14 Sep 2026. Uses fMRI recordings of viewed pictures; not arbitrary thought-reading. [Paper](https://arxiv.org/abs/2510.25976).
 
 ## A better starting point - 15 October 2026
 
@@ -34,8 +36,6 @@ Science catch-up, announced 8 Sep 2026. AlphaGenome Atlas maps predictions for 9
 
 ## How we choose stories
 
-One weekday digest, up to three good stories. A new capability people can use, a meaningful price change, a surprising discovery, or a failure with consequences. Original sources and announcement dates, company claims labelled, no invented hands-on tests. Older catch-ups are clearly dated. Images are original AI-generated editorial illustrations.
-
-The narrow launch issue remains in the [archive](issues/2026-10-15-original.md).
+One weekday digest, up to three good stories, plus worthwhile individually reviewed visual posts. A new capability people can use, a meaningful price change, a surprising discovery, or a failure with consequences. Original sources and announcement dates, company claims labelled, no invented hands-on tests. Older catch-ups are clearly dated. AI-assisted writing and artwork are disclosed; source images and clips are credited. Illustrations are not presented as documentary evidence.
 
 Corrections and suggestions are welcome through repository issues.
