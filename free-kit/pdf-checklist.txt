@@ -1,0 +1,21 @@
+AI GOT WEIRD - MAKE YOUR PDF SHOW ITS RECEIPTS
+Free workflow - checked 16 Oct 2026
+
+1. Open Gemini Notebook (formerly NotebookLM). Add a public PDF or a document you have permission to process.
+2. Ask one concrete question instead of requesting a summary of everything.
+3. Try this prompt:
+
+Using only this source, answer: [my question]. Give source citations for the important claims. Separate facts from your interpretation. Tell me what the source cannot establish. If the answer is missing, say so.
+
+4. Click each important citation. Read the surrounding passage. Does it support that exact claim, with the same scope and date?
+5. Check names, numbers and limitations against the original. A citation is a way to check an answer, not proof it is right.
+
+Real test: public Park et al. Generative Agents paper, arXiv:2304.03442. The party question returned source citations; one was opened and checked. The response also added an unwanted follow-up. This single test is not a reliability benchmark.
+
+Standard access is free with an eligible Google account. Usage limits and region/account requirements apply. No purchase or new plan was required in our test.
+
+Official plans: https://support.google.com/gemininotebook/answer/16213268?hl=en
+Try: https://notebook.google.com/
+Paper: https://arxiv.org/abs/2304.03442
+More useful tools and strange AI stories: https://t.me/shipaibrief
+AI-assisted writing, individually reviewed. No sponsorship or affiliate link.
