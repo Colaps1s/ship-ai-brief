@@ -6,6 +6,20 @@ Strange AI breakthroughs, useful tools and spectacular failures - explained in a
 
 [Browse the short visual stories](https://colaps1s.github.io/ship-ai-brief/reading/), including clearly dated research classics. Each Telegram story is one short image or video post. Longer background is optional on the website.
 
+## New guide: what's inside this app?
+
+You have an app or a file, but no source code. Where do you start?
+
+Our [practical reverse-engineering guide](https://colaps1s.github.io/ship-ai-brief/guides/reverse-engineering/) covers the viral [REA project](https://github.com/morluto/rea), the ArtCraft/PhotoCraft story, and a workflow you can try: observe one behavior, change one input, write a theory, then test an unseen example.
+
+- Pick tools for websites, native desktop programs, Android packages and file formats.
+- Follow exact setup steps and copyable investigation prompts.
+- [Download the original Python practice lab](https://colaps1s.github.io/ship-ai-brief/guides/reverse-engineering/reverse-engineering-lab.zip), or inspect its [parser](guides/reverse-engineering/lab/inspect_lbx.py).
+
+The lab is our own teaching fixture, with nine local checks. It is not a REA benchmark or a claim of independently decoding a proprietary application. REA and PhotoCraft facts are linked to their original sources, with limitations included.
+
+[Short visual Telegram story](https://t.me/shipaibrief/81). Independently made by AI Got Weird, with AI assistance and individual source review.
+
 Featured research catch-up: [AI can rebuild what you see](https://t.me/shipaibrief/11). Paper first posted 29 Oct 2025; university coverage 14 Sep 2026. Uses fMRI recordings of viewed pictures; not arbitrary thought-reading. [Paper](https://arxiv.org/abs/2510.25976).
 
 ## A better starting point - 15 October 2026
